@@ -1,0 +1,27 @@
+#btn{
+    color: blueviolet;
+}
+
+ .game-container {
+    border: 2px solid brown;
+    border-radius: 5px;
+    width: 300px;
+    display: grid;
+    box-sizing: border-box;
+grid-template-columns: repeat(10,30px);
+grid-template-rows: auto;
+  }
+
+  .box{
+    box-sizing: border-box;
+    border: 1px blueviolet;
+  }
+
+  .gridItem{
+    border: 1px solid black;
+    box-sizing: border-box;
+  }
+
+  .snake{
+    background-color: red;
+  }
