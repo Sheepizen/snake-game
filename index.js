@@ -81,23 +81,32 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
     drawSnake();
     await timeout(1000);
     // console.log(snakeObj);
-    // while (arrowDownBool) {
-    //   moveSnake("ArrowDown");
-    //   console.log(i);
-    //   i++;
-    //   if (i > 10) {
-    //     break;
-    //   }
-    // }
-    // while (arrowRightBool) {
-    //   moveSnake("ArrowRight");
-    //   console.log(i);
-    //   i++;
-    //   if (i > 10) {
-    //     break;
-    //   }
+    while (arrowDownBool) {
+      moveSnake("ArrowDown");
+      console.log(i);
+      i++;
+      if (i > 10) {
+        break;
+      }
+    }
+    while (arrowRightBool) {
+      moveSnake("ArrowRight");
+      console.log(i);
+      i++;
+      if (i > 10) {
+        break;
+      }
+    }
     while (arrowLeftBool) {
       moveSnake("ArrowLeft");
+      console.log(i);
+      i++;
+      if (i > 10) {
+        break;
+      }
+    }
+    while (arrowUpBool) {
+      moveSnake("ArrowUp");
       console.log(i);
       i++;
       if (i > 10) {
@@ -150,6 +159,17 @@ function moveSnakeObjectVertically() {
   }
 }
 
+function moveSnakeObjectUp() {
+  if (snakeObj.col[snakeObj.col.length - 1] <= 11) {
+    snakeObj.col.push(snakeObj.col[snakeObj.col.length - 1] - 1);
+  }
+  let shiftedElement = snakeObj.col.shift();
+  if (shiftedElement == 0) {
+    snakeObj.col.shift();
+    snakeObj.col.push(11);
+  }
+}
+
 function moveSnake(direction) {
   if (direction == "ArrowRight") {
     moveSnakeObjectHorizontally();
@@ -159,6 +179,9 @@ function moveSnake(direction) {
   }
   if (direction == "ArrowLeft") {
     moveSnakeObjectLeft();
+  }
+  if (direction == "ArrowUp") {
+    moveSnakeObjectUp();
   }
 }
 
