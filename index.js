@@ -2,8 +2,8 @@ let btn = document.getElementById("btn");
 let gameContainer = document.getElementById("gameContainer");
 // let snake = [1, 2];
 let snakeObj = {
-  row: [0],
-  col: [4],
+  row: [9],
+  col: [0],
 };
 const rows = 12;
 const cols = 10;
@@ -81,16 +81,23 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
     drawSnake();
     await timeout(1000);
     // console.log(snakeObj);
-    while (arrowDownBool) {
-      moveSnake("ArrowDown");
-      console.log(i);
-      i++;
-      if (i > 10) {
-        break;
-      }
-    }
-    while (arrowRightBool) {
-      moveSnake("ArrowRight");
+    // while (arrowDownBool) {
+    //   moveSnake("ArrowDown");
+    //   console.log(i);
+    //   i++;
+    //   if (i > 10) {
+    //     break;
+    //   }
+    // }
+    // while (arrowRightBool) {
+    //   moveSnake("ArrowRight");
+    //   console.log(i);
+    //   i++;
+    //   if (i > 10) {
+    //     break;
+    //   }
+    while (arrowLeftBool) {
+      moveSnake("ArrowLeft");
       console.log(i);
       i++;
       if (i > 10) {
@@ -119,6 +126,19 @@ function moveSnakeObjectHorizontally() {
     snakeObj.row.push(0);
   }
 }
+function moveSnakeObjectLeft() {
+  console.log(snakeObj.row);
+  if (snakeObj.row[snakeObj.row.length - 1] < 10) {
+    snakeObj.row.push(snakeObj.row[snakeObj.row.length - 1] - 1);
+  }
+  let shiftedElement = snakeObj.row.shift();
+  console.log("shiftie", shiftedElement);
+  if (shiftedElement == 0) {
+    console.log("do we enter");
+    snakeObj.row.shift();
+    snakeObj.row.push(9);
+  }
+}
 
 function moveSnakeObjectVertically() {
   if (snakeObj.col[snakeObj.col.length - 1] < 11) {
@@ -136,6 +156,9 @@ function moveSnake(direction) {
   }
   if (direction == "ArrowDown") {
     moveSnakeObjectVertically();
+  }
+  if (direction == "ArrowLeft") {
+    moveSnakeObjectLeft();
   }
 }
 
