@@ -76,67 +76,45 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
   let x = 6;
   let y = 1;
   let score = 3;
+  snake = [[6, 1]];
   while (snakeAlive == true) {
     await timeout(500);
     console.log(x);
-
-    if (arrowUpBool) {
-      if (y > 0) {
-        y--;
-      } else if (y == 0) {
-        y = 11;
+    snake.forEach((snail) => {
+      x = snail[0];
+      y = snail[1];
+      if (arrowUpBool) {
+        if (y > 0) {
+          y--;
+        } else if (y == 0) {
+          y = 11;
+        }
       }
-      // moveSnake("ArrowUp");
-      // console.log(i);
-      // i++;
-      // if (i > 10) {
-      //   break;
-      // }
-    }
-    if (arrowRightBool) {
-      if (x < 9) {
-        x++;
-      } else if (x == 9) {
-        x = 0;
+      if (arrowRightBool) {
+        if (x < 9) {
+          x++;
+        } else if (x == 9) {
+          x = 0;
+        }
       }
-      // moveSnake("ArrowRight");
-      // console.log(i);
-      // i++;
-      // if (i > 10) {
-      //   break;
-      // }
-    }
-    if (arrowLeftBool) {
-      if (x > 0) {
-        x--;
-      } else if (x == 0) {
-        x = 9;
+      if (arrowLeftBool) {
+        if (x > 0) {
+          x--;
+        } else if (x == 0) {
+          x = 9;
+        }
       }
-    }
+      if (arrowDownBool) {
+        if (y < 11) {
+          y++;
+        } else if (y == 11) {
+          y = 0;
+        }
+      }
+      colorSnake(x, y);
+    });
     resetField();
-    if (arrowDownBool) {
-      if (y < 11) {
-        y++;
-        for (let i = 1; i < score; i++) {
-          colorSnake(x, y - i);
-        }
-      } else if (y == 11) {
-        for (let i = 1; i < score; i++) {
-          colorSnake(x, y - 1);
-        }
-        y = 0;
-      }
-      // moveSnake("ArrowDown");
-      // console.log(i);
-      // i++;
-      // if (i > 10) {
-      //   break;
-      // }
-    }
-    colorSnake(x, y);
-
     console.log("snake:", x, y);
-    // termination logic
     if (snakeAlive == false) {
       break;
     }
