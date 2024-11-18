@@ -73,16 +73,18 @@ document.addEventListener("keydown", logKey);
 let snakeAlive = true;
 const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
-  let x = 6;
-  let y = 1;
   let score = 3;
-  snake = [[6, 1]];
+  snake = [
+    [6, 1],
+    [6, 0],
+  ];
   while (snakeAlive == true) {
-    await timeout(500);
-    console.log(x);
+    await timeout(3000);
     snake.forEach((snail) => {
-      x = snail[0];
-      y = snail[1];
+      let x = snail[0];
+      let y = snail[1];
+      let popped = snake.shift();
+      console.log("popped", popped);
       if (arrowUpBool) {
         if (y > 0) {
           y--;
@@ -111,10 +113,16 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
           y = 0;
         }
       }
-      colorSnake(x, y);
+      resetField();
+      let pop = snake.pop();
+
+      snake.unshift(pop);
+      snake.push([x, y]);
     });
-    resetField();
-    console.log("snake:", x, y);
+    console.log("test", snake);
+    for (const snail of snake) {
+      colorSnake(snail[0], snail[1]);
+    }
     if (snakeAlive == false) {
       break;
     }
