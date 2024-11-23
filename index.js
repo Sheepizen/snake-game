@@ -75,52 +75,48 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
   let score = 3;
   snake = [
-    [6, 1],
-    [6, 0],
+    [0, 0],
+    [1, 0],
+    [2, 0],
   ];
   while (snakeAlive == true) {
-    await timeout(3000);
-    snake.forEach((snail) => {
-      let x = snail[0];
-      let y = snail[1];
-      let popped = snake.shift();
-      console.log("popped", popped);
-      if (arrowUpBool) {
-        if (y > 0) {
-          y--;
-        } else if (y == 0) {
-          y = 11;
-        }
+    await timeout(1000);
+    snake.pop();
+    let x = snake[0][0];
+    let y = snake[0][1];
+    if (arrowUpBool) {
+      if (y > 0) {
+        y--;
+      } else if (y == 0) {
+        y = 11;
       }
-      if (arrowRightBool) {
-        if (x < 9) {
-          x++;
-        } else if (x == 9) {
-          x = 0;
-        }
+    }
+    if (arrowRightBool) {
+      if (x < 9) {
+        x++;
+      } else if (x == 9) {
+        x = 0;
       }
-      if (arrowLeftBool) {
-        if (x > 0) {
-          x--;
-        } else if (x == 0) {
-          x = 9;
-        }
+    }
+    if (arrowLeftBool) {
+      if (x > 0) {
+        x--;
+      } else if (x == 0) {
+        x = 9;
       }
-      if (arrowDownBool) {
-        if (y < 11) {
-          y++;
-        } else if (y == 11) {
-          y = 0;
-        }
+    }
+    if (arrowDownBool) {
+      if (y < 11) {
+        y++;
+      } else if (y == 11) {
+        y = 0;
       }
-      resetField();
-      let pop = snake.pop();
-
-      snake.unshift(pop);
-      snake.push([x, y]);
-    });
+    }
+    resetField();
+    snake.unshift([x, y]);
     console.log("test", snake);
     for (const snail of snake) {
+      console.log("snail", snail);
       colorSnake(snail[0], snail[1]);
     }
     if (snakeAlive == false) {
