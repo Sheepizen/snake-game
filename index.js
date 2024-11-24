@@ -33,26 +33,26 @@ array2D.forEach((row, y) => {
   });
 });
 async function logKey(e) {
-  if (e.key == "ArrowUp") {
+  if (e.key == "ArrowUp" && arrowDownBool == false) {
     arrowUpBool = true;
     arrowDownBool = false;
     arrowLeftBool = false;
     arrowRightBool = false;
   }
 
-  if (e.key == "ArrowDown") {
+  if (e.key == "ArrowDown" && arrowUpBool == false) {
     arrowUpBool = false;
     arrowDownBool = true;
     arrowLeftBool = false;
     arrowRightBool = false;
   }
-  if (e.key == "ArrowLeft") {
+  if (e.key == "ArrowLeft" && arrowRightBool == false) {
     arrowUpBool = false;
     arrowDownBool = false;
     arrowLeftBool = true;
     arrowRightBool = false;
   }
-  if (e.key == "ArrowRight") {
+  if (e.key == "ArrowRight" && arrowLeftBool == false) {
     arrowUpBool = false;
     arrowDownBool = false;
     arrowLeftBool = false;
@@ -73,17 +73,18 @@ document.addEventListener("keydown", logKey);
 let snakeAlive = true;
 const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
-  let score = 3;
   snake = [
-    [0, 0],
     [1, 0],
     [2, 0],
+    [3, 0],
   ];
+  let score = snake.length;
+
   while (snakeAlive == true) {
     await timeout(1000);
-    snake.pop();
     let x = snake[0][0];
     let y = snake[0][1];
+    snake.pop();
     if (arrowUpBool) {
       if (y > 0) {
         y--;
@@ -114,9 +115,9 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
     }
     resetField();
     snake.unshift([x, y]);
-    console.log("test", snake);
+    console.log("HELLO", snake);
+    addLimb(x, y);
     for (const snail of snake) {
-      console.log("snail", snail);
       colorSnake(snail[0], snail[1]);
     }
     if (snakeAlive == false) {
@@ -128,12 +129,6 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 
 let children = gameContainer.children;
 
-function addLimb(score, x, y) {
-  for (let i = 1; i < score; i++) {
-    colorSnake(x, y - i);
-  }
-}
-
 function colorSnake(x, y) {
   let element = document.getElementById(`x${x}y${y}`);
   element.classList.add("snake");
@@ -144,6 +139,36 @@ function resetField() {
     gameContainer.children[i].classList.remove("snake");
   }
 }
-function removeSnake(x, y) {
-  gameContainer.children[i].classList.remove("snake");
+
+function addLimb(x, y) {
+  console.log("coordinates", x, y);
+  if (arrowUpBool) {
+    if (y > 0) {
+      y--;
+    } else {
+      y = 11;
+    }
+    console.log("newest entry", x, y);
+    snake.unshift([x, y]);
+  }
+
+  if (arrowRightBool) {
+    if (x < 9) {
+      x++;
+    } else {
+      x = 0;
+    }
+
+    console.log("newest entry", x, y);
+    snake.unshift([x, y]);
+  }
+  if (arrowLeftBool) {
+    if (x > 0) {
+      x--;
+    } else {
+      x = 9;
+    }
+    console.log("newest entry", x, y);
+    snake.unshift([x, y]);
+  }
 }
