@@ -25,3 +25,7 @@ grid-template-rows: auto;
   .snake{
     background-color: red;
   }
+
+  .food{
+    background-color: brown;
+  }

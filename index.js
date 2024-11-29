@@ -1,10 +1,5 @@
 let btn = document.getElementById("btn");
 let gameContainer = document.getElementById("gameContainer");
-let snake = [1, 2];
-let snakeObj = {
-  row: [0],
-  col: [9],
-};
 const rows = 12;
 const cols = 10;
 let arrowUpBool = false;
@@ -73,17 +68,18 @@ document.addEventListener("keydown", logKey);
 let snakeAlive = true;
 const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
-  snake = [
+  let snake = [
     [1, 0],
     [2, 0],
     [3, 0],
   ];
   let score = snake.length;
+  let x = snake[0][0];
+  let y = snake[0][1];
 
+  addFood(snake);
   while (snakeAlive == true) {
-    await timeout(1000);
-    let x = snake[0][0];
-    let y = snake[0][1];
+    await timeout(100);
     snake.pop();
     if (arrowUpBool) {
       if (y > 0) {
@@ -116,7 +112,13 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
     resetField();
     snake.unshift([x, y]);
     console.log("HELLO", snake);
-    addLimb(x, y);
+    let element = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
+    if (checkCollision(element)) {
+      console.log("hallodasdsa");
+      addFood(snake);
+      snake.push([x, y]);
+    }
+    console.log("ELEMENT", element);
     for (const snail of snake) {
       colorSnake(snail[0], snail[1]);
     }
@@ -137,6 +139,35 @@ function colorSnake(x, y) {
 function resetField() {
   for (let i = 0; i < gameContainer.children.length; i++) {
     gameContainer.children[i].classList.remove("snake");
+  }
+}
+
+function addFood(snake) {
+  console.log("moin", snake);
+  // let x = Math.floor(Math.random() * 9) + 1;
+  // let y = Math.floor(Math.random() * 11) + 1;
+  let x = snake[0][0];
+  let y = snake[0][1];
+  console.log(x, y);
+  let element = document.getElementById(`x${x}y${y}`);
+  console.log("classList addfood element", element);
+  snake.forEach((limb) => {
+    let element = document.getElementById(`x${limb[0]}y${limb[1]}`);
+    console.log("element class list", element.classList);
+    console.log("each element ", element.classList.contains("food"));
+    if (element.classList.contains("snake")) {
+      console.log("is here double");
+      // addFood(snake);
+    }
+  });
+  element.classList.add("food");
+  return;
+}
+
+function checkCollision(element) {
+  if (element.classList.contains("food")) {
+    element.classList.remove("food");
+    return true;
   }
 }
 
