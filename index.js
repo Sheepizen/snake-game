@@ -144,17 +144,26 @@ function resetField() {
 
 function addFood(snake) {
   console.log("moin", snake);
-  // let x = Math.floor(Math.random() * 9) + 1;
-  // let y = Math.floor(Math.random() * 11) + 1;
-  let x = snake[0][0];
-  let y = snake[0][1];
+  let x = Math.floor(Math.random() * 9) + 1;
+  let y = Math.floor(Math.random() * 11) + 1;
+  // let x = snake[0][0];
+  // let y = snake[0][1];
   console.log(x, y);
   let element = document.getElementById(`x${x}y${y}`);
-  console.log("classList addfood element", element);
+  console.log("classList addfood element", element, element.className);
   snake.forEach((limb) => {
     let element = document.getElementById(`x${limb[0]}y${limb[1]}`);
     console.log("element class list", element.classList);
+    console.log(
+      "CHECK",
+      "classlist",
+      element.classList,
+      element.classList.length
+    );
     console.log("each element ", element.classList.contains("food"));
+    const div = document.createElement("div");
+    div.className = "foo";
+    console.log("ELEMETN", div.classList);
     if (element.classList.contains("snake")) {
       console.log("is here double");
       // addFood(snake);
