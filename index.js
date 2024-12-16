@@ -79,7 +79,7 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 
   addFood(snake);
   while (snakeAlive == true) {
-    await timeout(100);
+    await timeout(2000);
     snake.pop();
     if (arrowUpBool) {
       if (y > 0) {
@@ -110,18 +110,25 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
       }
     }
     resetField();
-    snake.unshift([x, y]);
-    console.log("HELLO", snake);
-    let element = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
-    if (checkCollision(element)) {
-      console.log("hallodasdsa");
-      addFood(snake);
-      snake.push([x, y]);
+    console.log("check the snake", snake);
+
+    let element2 = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
+    console.log("element2", element2);
+    if (checkCollison(element2)) {
+      console.log("COLLISION");
     }
-    console.log("ELEMENT", element);
+    snake.unshift([x, y]);
+
     for (const snail of snake) {
       colorSnake(snail[0], snail[1]);
     }
+    let element = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
+
+    if (onEat(element)) {
+      addFood(snake);
+      snake.push([x, y]);
+    }
+
     if (snakeAlive == false) {
       break;
     }
@@ -143,37 +150,20 @@ function resetField() {
 }
 
 function addFood(snake) {
-  console.log("moin", snake);
   let x = Math.floor(Math.random() * 9) + 1;
   let y = Math.floor(Math.random() * 11) + 1;
-  // let x = snake[0][0];
-  // let y = snake[0][1];
   console.log(x, y);
   let element = document.getElementById(`x${x}y${y}`);
-  console.log("classList addfood element", element, element.className);
-  snake.forEach((limb) => {
-    let element = document.getElementById(`x${limb[0]}y${limb[1]}`);
-    console.log("element class list", element.classList);
-    console.log(
-      "CHECK",
-      "classlist",
-      element.classList,
-      element.classList.length
-    );
-    console.log("each element ", element.classList.contains("food"));
-    const div = document.createElement("div");
-    div.className = "foo";
-    console.log("ELEMETN", div.classList);
-    if (element.classList.contains("snake")) {
-      console.log("is here double");
-      // addFood(snake);
-    }
-  });
-  element.classList.add("food");
+
+  if (element.classList.contains("snake")) {
+    addFood(snake);
+  } else {
+    element.classList.add("food");
+  }
   return;
 }
 
-function checkCollision(element) {
+function onEat(element) {
   if (element.classList.contains("food")) {
     element.classList.remove("food");
     return true;
@@ -181,7 +171,6 @@ function checkCollision(element) {
 }
 
 function addLimb(x, y) {
-  console.log("coordinates", x, y);
   if (arrowUpBool) {
     if (y > 0) {
       y--;
@@ -210,5 +199,12 @@ function addLimb(x, y) {
     }
     console.log("newest entry", x, y);
     snake.unshift([x, y]);
+  }
+}
+
+function checkCollison(element) {
+  if (element.classList.contains("snake")) {
+    console.log("collision with snake");
+    return true;
   }
 }
