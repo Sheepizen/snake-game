@@ -14,6 +14,8 @@ function fillArr(num) {
   }
 }
 
+//BUGS:
+//collision detection sometimes fucked up. Maybe head / next logic?
 
 const array2D = new Array(rows)
   .fill()
@@ -115,24 +117,37 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
       }
     }
 
-if(getNextTile(x,y)){
-      if(checkCollison(document.getElementById(`x${x}y${y}`))){
-        console.log("HEAD SNAKE HAHA")
-        break
-      }
-          if(checkCollison(getNextTile(x,y))){
-            snakeAlive == false
-            break
-          }
-        }
-    resetField();
-    snake.unshift([x, y]);
+// if(getNextTile(x,y)){
+//   getNextTile(x,y).classList.add("next")
+// document.getElementById(`x${x}y${y}`).classList.add("head")
+//       if(checkCollison(document.getElementById(`x${x}y${y}`))){
+//         console.log("HEAD SNAKE HAHA")
+//         break
+//       }
+//           if(checkCollison(getNextTile(x,y))){
+//             console.log("NEXT TILE HAHA")
+//             snakeAlive == false
+//             break
+//           }
+//         }
+
+
+snake.unshift([x, y]);
 
     
+if(getNextTile(x,y)){
+      if(checkCollison(document.getElementById(`x${x}y${y}`))){
+        break
+      }
+  }
+
+resetField();
+
 
     for (const snail of snake) {
       colorSnake(snail[0], snail[1]);
     }
+
 
 
     let element = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
@@ -159,8 +174,8 @@ function colorSnake(x, y) {
 function resetField() {
   for (let i = 0; i < gameContainer.children.length; i++) {
     gameContainer.children[i].classList.remove("snake");
-    gameContainer.children[i].classList.remove("test");
-    gameContainer.children[i].classList.remove("test2");
+    gameContainer.children[i].classList.remove("head");
+    gameContainer.children[i].classList.remove("next");
   }
 }
 
