@@ -26,6 +26,11 @@ grid-template-rows: auto;
     background-color: red;
   }
 
+  .head {
+    background-color: aqua;
+  }
+
+.next{background-color: blueviolet;}
   .food{
     background-color: brown;
   }
