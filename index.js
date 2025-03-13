@@ -117,20 +117,6 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
       }
     }
 
-// if(getNextTile(x,y)){
-//   getNextTile(x,y).classList.add("next")
-// document.getElementById(`x${x}y${y}`).classList.add("head")
-//       if(checkCollison(document.getElementById(`x${x}y${y}`))){
-//         console.log("HEAD SNAKE HAHA")
-//         break
-//       }
-//           if(checkCollison(getNextTile(x,y))){
-//             console.log("NEXT TILE HAHA")
-//             snakeAlive == false
-//             break
-//           }
-//         }
-
 
 snake.unshift([x, y]);
 
@@ -143,12 +129,9 @@ if(getNextTile(x,y)){
 
 resetField();
 
-
     for (const snail of snake) {
       colorSnake(snail[0], snail[1]);
     }
-
-
 
     let element = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
 
