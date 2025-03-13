@@ -14,6 +14,7 @@ function fillArr(num) {
   }
 }
 
+
 const array2D = new Array(rows)
   .fill()
   .map((row, index) => new Array(cols).fill(index));
@@ -27,6 +28,9 @@ array2D.forEach((row, y) => {
     gameContainer.appendChild(item);
   });
 });
+
+
+
 async function logKey(e) {
   if (e.key == "ArrowUp" && arrowDownBool == false) {
     arrowUpBool = true;
@@ -63,8 +67,10 @@ async function logKey(e) {
   }
   console.log(e.key);
 }
+function checkInput(){
 document.addEventListener("keydown", logKey);
-
+}
+checkInput()
 let snakeAlive = true;
 const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
@@ -76,10 +82,9 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
   let score = snake.length;
   let x = snake[0][0];
   let y = snake[0][1];
-
   addFood(snake);
   while (snakeAlive == true) {
-    await timeout(2000);
+    await timeout(100);
     snake.pop();
     if (arrowUpBool) {
       if (y > 0) {
@@ -109,19 +114,27 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
         y = 0;
       }
     }
-    resetField();
-    console.log("check the snake", snake);
 
-    let element2 = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
-    console.log("element2", element2);
-    if (checkCollison(element2)) {
-      console.log("COLLISION");
-    }
+if(getNextTile(x,y)){
+      if(checkCollison(document.getElementById(`x${x}y${y}`))){
+        console.log("HEAD SNAKE HAHA")
+        break
+      }
+          if(checkCollison(getNextTile(x,y))){
+            snakeAlive == false
+            break
+          }
+        }
+    resetField();
     snake.unshift([x, y]);
+
+    
 
     for (const snail of snake) {
       colorSnake(snail[0], snail[1]);
     }
+
+
     let element = document.getElementById(`x${snake[0][0]}y${snake[0][1]}`);
 
     if (onEat(element)) {
@@ -146,6 +159,8 @@ function colorSnake(x, y) {
 function resetField() {
   for (let i = 0; i < gameContainer.children.length; i++) {
     gameContainer.children[i].classList.remove("snake");
+    gameContainer.children[i].classList.remove("test");
+    gameContainer.children[i].classList.remove("test2");
   }
 }
 
@@ -170,41 +185,42 @@ function onEat(element) {
   }
 }
 
-function addLimb(x, y) {
-  if (arrowUpBool) {
-    if (y > 0) {
-      y--;
-    } else {
-      y = 11;
-    }
-    console.log("newest entry", x, y);
-    snake.unshift([x, y]);
-  }
-
-  if (arrowRightBool) {
-    if (x < 9) {
-      x++;
-    } else {
-      x = 0;
-    }
-
-    console.log("newest entry", x, y);
-    snake.unshift([x, y]);
-  }
-  if (arrowLeftBool) {
-    if (x > 0) {
-      x--;
-    } else {
-      x = 9;
-    }
-    console.log("newest entry", x, y);
-    snake.unshift([x, y]);
-  }
-}
 
 function checkCollison(element) {
   if (element.classList.contains("snake")) {
-    console.log("collision with snake");
     return true;
   }
+}
+
+function getNextTile(x,y){
+if(arrowRightBool){
+      if(x == 9) {
+    return document.getElementById( `x${0}y${y}`) 
+      } else {
+    return document.getElementById( `x${x+1}y${y}`) 
+      }
+    }
+if(arrowLeftBool){
+      if(x == 0) {
+    return document.getElementById( `x${9}y${y}`) 
+      } else {
+    return document.getElementById( `x${x-1}y${y}`) 
+      }
+    }
+    if(arrowDownBool){
+      if(y==11){
+    return document.getElementById( `x${x}y${0}`)
+      }
+      else {
+    return document.getElementById( `x${x}y${y+1}`)
+       }
+    }
+    if(arrowUpBool){
+      if(y>0){
+    return document.getElementById( `x${x}y${y-1}`) 
+      }
+      else {
+ return document.getElementById( `x${x}y${11}`)
+         }
+    }
 }
