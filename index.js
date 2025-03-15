@@ -78,10 +78,8 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
   let snake = [
     [1, 0],
-    [2, 0],
-    [3, 0],
   ];
-  let score = snake.length;
+  let score = 0
   let x = snake[0][0];
   let y = snake[0][1];
   addFood(snake);
@@ -117,7 +115,6 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
       }
     }
 
-
 snake.unshift([x, y]);
 
     
@@ -138,6 +135,8 @@ resetField();
     if (onEat(element)) {
       addFood(snake);
       snake.push([x, y]);
+      score++
+      updateCounter(score)
     }
 
     if (snakeAlive == false) {
@@ -157,15 +156,16 @@ function colorSnake(x, y) {
 function resetField() {
   for (let i = 0; i < gameContainer.children.length; i++) {
     gameContainer.children[i].classList.remove("snake");
-    gameContainer.children[i].classList.remove("head");
-    gameContainer.children[i].classList.remove("next");
   }
+}
+
+function updateCounter(score){
+document.getElementById("scoreCounter").textContent = score
 }
 
 function addFood(snake) {
   let x = Math.floor(Math.random() * 9) + 1;
   let y = Math.floor(Math.random() * 11) + 1;
-  console.log(x, y);
   let element = document.getElementById(`x${x}y${y}`);
 
   if (element.classList.contains("snake")) {
