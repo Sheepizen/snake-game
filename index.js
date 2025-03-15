@@ -6,17 +6,12 @@ let arrowUpBool = false;
 let arrowDownBool = false;
 let arrowLeftBool = false;
 let arrowRightBool = false;
-function fillArr(num) {
-  for (let i = 0; i < num; i++) {
-    let arr = [];
-    arr.push(i);
-    return arr;
-  }
-}
+
 
 const array2D = new Array(rows)
   .fill()
-  .map((row, index) => new Array(cols).fill(index));
+  .map((row, index) => new Array(cols).fill(index
+  ));
 
 array2D.forEach((row, y) => {
   row.forEach((cell, x) => {

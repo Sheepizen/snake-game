@@ -20,13 +20,16 @@ grid-template-rows: auto;
   .gridItem{
     border: 1px solid black;
     box-sizing: border-box;
+    color: white;
   }
 
   .snake{
     background-color: red;
+    color: red
   }
 
 
   .food{
     background-color: brown;
+    color:brown
   }
