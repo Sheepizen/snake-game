@@ -82,13 +82,13 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
       if (y > 0) {
         y--;
       } else if (y == 0) {
-        y = 11;
+        y = cols - 1;
       }
     }
     if (arrowRightBool) {
-      if (x < 9) {
+      if (x < rows -1) {
         x++;
-      } else if (x == 9) {
+      } else if (x == rows -1) {
         x = 0;
       }
     }
@@ -96,13 +96,13 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
       if (x > 0) {
         x--;
       } else if (x == 0) {
-        x = 9;
+        x = rows-1;
       }
     }
     if (arrowDownBool) {
-      if (y < 11) {
+      if (y < cols - 1) {
         y++;
-      } else if (y == 11) {
+      } else if (y == cols - 1) {
         y = 0;
       }
     }
