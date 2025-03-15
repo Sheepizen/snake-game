@@ -14,9 +14,6 @@ function fillArr(num) {
   }
 }
 
-//BUGS:
-//collision detection sometimes fucked up. Maybe head / next logic?
-
 const array2D = new Array(rows)
   .fill()
   .map((row, index) => new Array(cols).fill(index));
