@@ -1,16 +1,16 @@
 let btn = document.getElementById("btn");
 let gameContainer = document.getElementById("gameContainer");
+const cols = 18;
 const rows = 12;
-const cols = 12;
 let arrowUpBool = false;
 let arrowDownBool = false;
 let arrowLeftBool = false;
 let arrowRightBool = false;
 
 
-const array2D = new Array(rows)
+const array2D = new Array(cols)
   .fill()
-  .map((row, index) => new Array(cols).fill(index
+  .map((row, index) => new Array(rows).fill(index
   ));
 
 array2D.forEach((row, y) => {
