@@ -1,7 +1,7 @@
 let btn = document.getElementById("btn");
 let gameContainer = document.getElementById("gameContainer");
 const rows = 12;
-const cols = 10;
+const cols = 12;
 let arrowUpBool = false;
 let arrowDownBool = false;
 let arrowLeftBool = false;
@@ -22,7 +22,6 @@ array2D.forEach((row, y) => {
     gameContainer.appendChild(item);
   });
 });
-
 
 
 async function logKey(e) {
@@ -59,7 +58,6 @@ async function logKey(e) {
     arrowLeftBool = false;
     arrowRightBool = false;
   }
-  console.log(e.key);
 }
 function checkInput(){
 document.addEventListener("keydown", logKey);
