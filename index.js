@@ -110,7 +110,7 @@ snake.unshift([x, y]);
     
 if(getNextTile(x,y)){
       if(checkCollison(document.getElementById(`x${x}y${y}`))){
-        break
+        snakeAlive = false
       }
   }
 
@@ -130,6 +130,7 @@ resetField();
     }
 
     if (snakeAlive == false) {
+      gameOver()
       break;
     }
   }
@@ -154,8 +155,8 @@ document.getElementById("scoreCounter").textContent = score
 }
 
 function addFood(snake) {
-  let x = Math.floor(Math.random() * 9) + 1;
-  let y = Math.floor(Math.random() * 11) + 1;
+  let x = Math.floor(Math.random() * rows) ;
+  let y = Math.floor(Math.random() * cols) ;
   let element = document.getElementById(`x${x}y${y}`);
 
   if (element.classList.contains("snake")) {
@@ -211,4 +212,15 @@ if(arrowLeftBool){
  return document.getElementById( `x${x}y${11}`)
          }
     }
+}
+
+function gameOver(){
+  let gameOverText = document.createElement("p")
+  gameOverText.textContent="game over"
+  let gameOverBtn = document.createElement("button")
+  gameOverBtn.addEventListener("click",()=>location.reload())
+  gameOverBtn.textContent ="try again"
+  gameOverText.appendChild(document.createElement("br"))
+  gameOverText.appendChild(gameOverBtn)
+  document.getElementById("game-over-text").appendChild(gameOverText)
 }
