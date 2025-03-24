@@ -110,7 +110,7 @@ const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 snake.unshift([x, y]);
 
     
-if(getNextTile(x,y)){
+if(score >0){
       if(checkCollison(document.getElementById(`x${x}y${y}`))){
         snakeAlive = false
       }
@@ -184,39 +184,6 @@ function checkCollison(element) {
   if (element.classList.contains("snake")) {
     return true;
   }
-}
-
-function getNextTile(x,y){
-if(arrowRightBool){
-      if(x == 9) {
-    return document.getElementById( `x${0}y${y}`) 
-      } else {
-    return document.getElementById( `x${x+1}y${y}`) 
-      }
-    }
-if(arrowLeftBool){
-      if(x == 0) {
-    return document.getElementById( `x${9}y${y}`) 
-      } else {
-    return document.getElementById( `x${x-1}y${y}`) 
-      }
-    }
-    if(arrowDownBool){
-      if(y==11){
-    return document.getElementById( `x${x}y${0}`)
-      }
-      else {
-    return document.getElementById( `x${x}y${y+1}`)
-       }
-    }
-    if(arrowUpBool){
-      if(y>0){
-    return document.getElementById( `x${x}y${y-1}`) 
-      }
-      else {
- return document.getElementById( `x${x}y${11}`)
-         }
-    }
 }
 
 function gameOver(){
