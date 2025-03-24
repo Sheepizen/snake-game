@@ -40,3 +40,7 @@ grid-template-rows: auto;
   .push{
     margin-left: 220px;
   }
+
+  #game-over-text{
+    margin-left: 130px;
+  }

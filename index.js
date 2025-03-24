@@ -154,6 +154,9 @@ function resetField() {
 
 function updateCounter(score){
 document.getElementById("scoreCounter").textContent = score
+if(localStorage.getItem("highscore")<score){
+  document.getElementById("Highscore").textContent = score
+}
 }
 
 function addFood(snake) {
