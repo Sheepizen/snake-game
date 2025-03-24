@@ -62,8 +62,10 @@ async function logKey(e) {
 function checkInput(){
 document.addEventListener("keydown", logKey);
 }
+
 checkInput()
 let snakeAlive = true;
+function gameLoop(){
 const timeout = (ms) => new Promise((res) => setTimeout(res, ms));
 (async () => {
   let snake = [
@@ -131,13 +133,13 @@ resetField();
 
     if (snakeAlive == false) {
       gameOver()
+      setHighscore(score)
       break;
     }
   }
   console.log("done");
 })();
-
-let children = gameContainer.children;
+}
 
 function colorSnake(x, y) {
   let element = document.getElementById(`x${x}y${y}`);
@@ -224,3 +226,14 @@ function gameOver(){
   gameOverText.appendChild(gameOverBtn)
   document.getElementById("game-over-text").appendChild(gameOverText)
 }
+
+function setHighscore(score){
+  if(localStorage.getItem("highscore")<score){
+  localStorage.setItem("highscore",score)  
+  }
+}
+if(localStorage.getItem("highscore")){
+  document.getElementById("Highscore").textContent = localStorage.getItem("highscore")
+}else{document.getElementById("Highscore").textContent=0}
+
+gameLoop()

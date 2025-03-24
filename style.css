@@ -32,3 +32,11 @@ grid-template-rows: auto;
     background-color: brown;
     color:brown
   }
+
+  #score{
+    width: 365px;
+    display:inline;
+  }
+  .push{
+    margin-left: 220px;
+  }
