@@ -16,7 +16,7 @@ const array2D = new Array(cols)
 array2D.forEach((row, y) => {
   row.forEach((cell, x) => {
     let item = document.createElement("div");
-    item.textContent = cell;
+     item.setAttribute("style","height:20px")
     item.classList.add("gridItem");
     item.id = `x${x}y${y}`;
     gameContainer.appendChild(item);
